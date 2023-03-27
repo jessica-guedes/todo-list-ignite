@@ -1,5 +1,6 @@
 import { Empty } from './Empty';
 import styles from './Tasks.module.css';
+import { TasksList } from './TasksList';
 
 export function Tasks(){
   return(
@@ -16,7 +17,13 @@ export function Tasks(){
         </div>
       </header>
 
-      <Empty />
+      <TasksList />
+      <TasksList />
+      <TasksList />
+      <TasksList />
+      <TasksList />
+      <TasksList />
+      <TasksList />
 
     </div>
   )
