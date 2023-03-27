@@ -17,4 +17,11 @@
 
 body {
   background: var(--gray-500);
+  -webkit-font-smoothing: antialiased;
+}
+
+body, input, button {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
 }
