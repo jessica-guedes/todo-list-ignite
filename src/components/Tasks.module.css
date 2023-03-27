@@ -1,0 +1,49 @@
+.tasks {
+  margin: 4rem auto;
+  width: 46rem;
+}
+
+.tasks header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--gray-400);
+  padding-bottom: 1.5rem;
+}
+
+.tasks > header span {
+  background: var(--gray-400);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gray-200);
+  border-radius: 8px;
+  padding: 0.12rem 0.75rem;
+}
+
+.tasks .completedTasks, .listTasks {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tasks .listTasks strong {
+  color: var(--blue-light);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.tasks .completedTasks strong {
+  color: var(--purple);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+
+.emptyTasks{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: var(--gray-300);
+  line-height: 1.4;
+  padding-top: 4rem;
+}
