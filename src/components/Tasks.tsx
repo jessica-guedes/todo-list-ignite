@@ -14,11 +14,14 @@ export function Tasks(){
   const [tasks, setTasks] = useState([
     'Fazer exercício',
   ])
-
-  
   const [newTaskText, setNewTaskText] = useState('')
 
-  
+  const isNewTaskEmpty = newTaskText.length === 0;
+
+  const [listTasksCount, setListTasksCount] = useState( 0 )
+
+  const [listCompletedTasks, setListCompletedTasks] = useState( 0 )
+
   function handleCreateNewTasks(event: FormEvent) {
     event?.preventDefault()
 
@@ -43,12 +46,20 @@ export function Tasks(){
     event?.target.setCustomValidity('Esse campo é obrigatório!')
   }
 
-  const isNewTaskEmpty = newTaskText.length === 0;
+  function handleCreateTask(){
+    setListTasksCount((state) => {
+      return state + 1
+    });
+  }
+
+  function handleCreateListCompletedTasks(){
+    setListCompletedTasks((state) => {
+      return state + 1
+    })
+  }
 
   return(
-
     <div>
-      
       <div>
       <header className={styles.header}>
         <img src={todoLogo} alt="" />
@@ -62,7 +73,7 @@ export function Tasks(){
           onInvalid={handleNewTaskInvalid}
           required
         />
-        <button type='submit' disabled={isNewTaskEmpty}>
+        <button onClick={handleCreateTask} type='submit' disabled={isNewTaskEmpty}>
           Criar
           <PlusCircle size={20}/>
         </button>
@@ -70,17 +81,15 @@ export function Tasks(){
       </div>
 
       <div className={styles.tasks}>
-      
-      
         <main>
           <div className={styles.listTasks}>
             <strong>Tarefas criadas</strong>
-            <span>0</span>
+            <span>{listTasksCount}</span>
           </div>
       
           <div className={styles.completedTasks}>
             <strong>Concluídas</strong>
-            <span>0</span>
+            <span>{listCompletedTasks}</span>
           </div>
         </main>
        

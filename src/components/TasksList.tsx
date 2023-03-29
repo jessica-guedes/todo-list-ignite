@@ -1,8 +1,6 @@
 import { Trash } from "@phosphor-icons/react";
 import styles from './TasksList.module.css';
 import check from '../assets/check.svg';
-import { Empty } from "./Empty";
-import { useState } from "react";
 
 interface TaskProps {
   content: string;
@@ -10,13 +8,14 @@ interface TaskProps {
 }
 
 export function TasksList({content, onDeleteTask}: TaskProps) {
-  const [tasksList, setTasksList] = useState([])
+
 
   function handleDeleteTask(){
     onDeleteTask(content)
   }
 
   
+
   return (  
         <div className={styles.tasksList}>
             <div className={styles.tasksListCheck}>
