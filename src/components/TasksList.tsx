@@ -1,19 +1,35 @@
-import { CheckCircle, Trash } from "@phosphor-icons/react";
+import { Trash } from "@phosphor-icons/react";
 import styles from './TasksList.module.css';
-export function TasksList() {
-  return (
-    <div className={styles.tasksList}>
-      <div className={styles.tasksListCheck}>
-        <CheckCircle size={28}/>
-      </div>
+import check from '../assets/check.svg';
+import { Empty } from "./Empty";
+import { useState } from "react";
 
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas temporibus dicta voluptates dolores voluptatem fugiat autem. Inventore earum labore provident, animi amet maiores ullam esse, quo beatae eos dolorem distinctio!</p>
+interface TaskProps {
+  content: string;
+  onDeleteTask: (task: string) => void
+}
 
-      <div className={styles.tasksListButton}>
-        <button>
-          <Trash size={22} />
-        </button>
-      </div>
-    </div>
+export function TasksList({content, onDeleteTask}: TaskProps) {
+  const [tasksList, setTasksList] = useState([])
+
+  function handleDeleteTask(){
+    onDeleteTask(content)
+  }
+
+  
+  return (  
+        <div className={styles.tasksList}>
+            <div className={styles.tasksListCheck}>
+              <button>
+                <img src={check}/>
+              </button>
+            </div>
+            <p>{content}</p>
+            <div className={styles.tasksListButton}>
+              <button onClick={handleDeleteTask}>
+                <Trash size={20} />
+              </button>
+            </div>
+        </div>
   )
 }
