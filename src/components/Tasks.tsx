@@ -1,6 +1,7 @@
 import { PlusCircle } from '@phosphor-icons/react';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import todoLogo from '../assets/todo-logo.svg';
+import { Empty } from './Empty';
 
 
 import styles from './Tasks.module.css';
@@ -10,9 +11,7 @@ import { TasksList } from './TasksList';
 
 
 export function Tasks(){
-  const [tasks, setTasks] = useState([
-    'Praticar algum exercício'
-  ])
+  const [tasks, setTasks] = useState<string[]>([])
   const [newTaskText, setNewTaskText] = useState('')
 
   const isNewTaskEmpty = newTaskText.length === 0;
@@ -96,33 +95,35 @@ export function Tasks(){
           </div>
         </main>
        
-        {
-          
-          tasks.map((task, index) => {
-          return (
-          <TasksList 
-            key={task}
-            content={task}
-            onDeleteTask={deleteTask}
-            onCompleteTask={handleTaskCompletion}
-            isCompleted={tasksCompleted[index]}
-            onToggleTaskCompletion={() => {
-              setTasksCompleted((prev) => {
-                const newState = [...prev];
-                newState[index] = !newState[index];
-                return newState;
-              });
-            }}
-            setIsCompleted={(value) => {
-              setTasksCompleted((prev) => {
-                const newState = [...prev];
-                newState[index] = value;
-                return newState;
-              });
-            }}
-            />
-          )
-        })}
+        {tasks.length === 0 ? (
+          <div>
+            <Empty />
+          </div>
+          ) : (
+            tasks.map((task, index) => (
+              <TasksList 
+                key={task}
+                content={task}
+                onDeleteTask={deleteTask}
+                onCompleteTask={handleTaskCompletion}
+                isCompleted={tasksCompleted[index]}
+                onToggleTaskCompletion={() => {
+                  setTasksCompleted((prev) => {
+                    const newState = [...prev];
+                    newState[index] = !newState[index];
+                    return newState;
+                  });
+                }}
+                setIsCompleted={(value) => {
+                  setTasksCompleted((prev) => {
+                    const newState = [...prev];
+                    newState[index] = value;
+                    return newState;
+                  });
+                }}
+              />
+            ))
+          )}
       </div>
     </div>
   )

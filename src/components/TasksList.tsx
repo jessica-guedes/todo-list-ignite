@@ -2,13 +2,14 @@ import { Trash } from "@phosphor-icons/react";
 import styles from './TasksList.module.css';
 import check from '../assets/check.svg';
 import uncheck from '../assets/uncheck.svg';
-import { useState } from "react";
+import { useState, SetStateAction } from "react";
+
 
 interface TaskProps {
   content: string;
   onDeleteTask: (task: string) => void
   onCompleteTask: () => void;
-  isCompleted: boolean;
+  isCompleted: React.Dispatch<SetStateAction<boolean>>;
   setIsCompleted: React.Dispatch<React.SetStateAction<boolean>>;
   onToggleTaskCompletion: () => void;
   
