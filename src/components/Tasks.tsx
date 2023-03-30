@@ -1,7 +1,6 @@
 import { PlusCircle } from '@phosphor-icons/react';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import todoLogo from '../assets/todo-logo.svg';
-import { Empty } from './Empty';
 
 
 import styles from './Tasks.module.css';
@@ -12,7 +11,7 @@ import { TasksList } from './TasksList';
 
 export function Tasks(){
   const [tasks, setTasks] = useState([
-    'Fazer exercício',
+    'Praticar algum exercício'
   ])
   const [newTaskText, setNewTaskText] = useState('')
 
@@ -20,7 +19,11 @@ export function Tasks(){
 
   const [listTasksCount, setListTasksCount] = useState( 0 )
 
-  const [listCompletedTasks, setListCompletedTasks] = useState( 0 )
+  const [completedTasksCount, setCompletedTasksCount] = useState(0);
+
+  const [tasksCompleted, setTasksCompleted] = useState(
+    tasks.map(() => false)
+  );
 
   function handleCreateNewTasks(event: FormEvent) {
     event?.preventDefault()
@@ -52,11 +55,10 @@ export function Tasks(){
     });
   }
 
-  function handleCreateListCompletedTasks(){
-    setListCompletedTasks((state) => {
-      return state + 1
-    })
+  function handleTaskCompletion() {
+    setCompletedTasksCount(completedTasksCount + 1);
   }
+ 
 
   return(
     <div>
@@ -68,6 +70,7 @@ export function Tasks(){
       <form onSubmit={handleCreateNewTasks} className={styles.form}>
         <input 
           type="text" 
+          placeholder='Adicione uma nova tarefa...'
           value={newTaskText} 
           onChange={handleNewTaskChange}
           onInvalid={handleNewTaskInvalid}
@@ -89,18 +92,34 @@ export function Tasks(){
       
           <div className={styles.completedTasks}>
             <strong>Concluídas</strong>
-            <span>{listCompletedTasks}</span>
+            <span>{completedTasksCount}</span>
           </div>
         </main>
        
         {
           
-          tasks.map(task => {
+          tasks.map((task, index) => {
           return (
           <TasksList 
             key={task}
             content={task}
             onDeleteTask={deleteTask}
+            onCompleteTask={handleTaskCompletion}
+            isCompleted={tasksCompleted[index]}
+            onToggleTaskCompletion={() => {
+              setTasksCompleted((prev) => {
+                const newState = [...prev];
+                newState[index] = !newState[index];
+                return newState;
+              });
+            }}
+            setIsCompleted={(value) => {
+              setTasksCompleted((prev) => {
+                const newState = [...prev];
+                newState[index] = value;
+                return newState;
+              });
+            }}
             />
           )
         })}
